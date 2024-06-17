@@ -1,0 +1,3 @@
+# Hardhat
+
+https://hardhat.org/

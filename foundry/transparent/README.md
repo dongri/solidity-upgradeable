@@ -1,66 +1,33 @@
-## Foundry
+## Create a new project
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+```bash
+$ forge init transparent
 
-Foundry consists of:
+$ forge install OpenZeppelin/openzeppelin-contracts-upgradeable@v5.0.2 --no-commit --quiet
+$ forge install OpenZeppelin/openzeppelin-foundry-upgrades --no-commit --quiet
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
-
-## Documentation
-
-https://book.getfoundry.sh/
-
-## Usage
-
-### Build
-
-```shell
-$ forge build
+$ vim remappings.txt
+@openzeppelin/contracts/=lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/
+@openzeppelin/contracts-upgradeable/=lib/openzeppelin-contracts-upgradeable/contracts/
+@openzeppelin-foundry-upgrades/=lib/openzeppelin-foundry-upgrades/src/
+forge-std/=lib/forge-std/src/
 ```
 
-### Test
+## Deploy
+```bash
+$ vim foundry.toml
+ast = true
+ffi = true
+build_info = true
+extra_output = ["storageLayout"]
 
-```shell
-$ forge test
+$ mv .env.example .env
+$ vim .env
+
+$ forge script script/Deploy.s.sol --rpc-url $SEPOLIA_RPC_URL --broadcast --legacy
+
+$ forge script script/Upgrade.s.sol --rpc-url $SEPOLIA_RPC_URL --broadcast --legacy
 ```
 
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+## Memo
+The deployer must be the same as the initial owner.

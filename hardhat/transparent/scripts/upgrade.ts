@@ -3,7 +3,7 @@ import { ethers, upgrades } from "hardhat";
 async function main() {
   const ContractFactory = await ethers.getContractFactory("MyNFT");
 
-  const instance = await upgrades.upgradeProxy("0x1aBeEBbCce84DfD4f14207bEfe2b9e73a8C92FDB", ContractFactory);
+  const instance = await upgrades.upgradeProxy("0xdD32D252f6a8B947aEA8a87a41170E14C5db3Fbd", ContractFactory);
   await instance.waitForDeployment();
 
   console.log(`Proxy upgraded to ${await instance.getAddress()}`);
